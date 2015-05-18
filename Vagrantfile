@@ -117,7 +117,15 @@ Vagrant.configure("2") do |config|
   # inside the VM will be created that acts as the default location for Apache sites. Put all
   # of your project files here that you want to access through the web server
   if vagrant_version >= "1.3.0"
+
     config.vm.synced_folder "www/", "/srv/www/", :owner => "www-data", :mount_options => [ "dmode=775", "fmode=774" ]
+
+    # NOV
+    config.vm.synced_folder "/Users/ysap02/Dropbox/ysap/nov/nov-static-rtn", "/srv/www/nov/public_html", :owner => "www-data", :mount_options => [ "dmode=775", "fmode=774" ]
+
+    # OurAge
+    config.vm.synced_folder "/Users/ysap02/Dropbox/ysap/ses/ses-wp-rtn/wp-content/themes/our_age", "/srv/www/ourage/public_html/wp-content/themes/our_age", :owner => "www-data", :mount_options => [ "dmode=775", "fmode=774" ]
+
   else
     config.vm.synced_folder "www/", "/srv/www/", :owner => "www-data", :extra => 'dmode=775,fmode=774'
   end
@@ -164,4 +172,5 @@ Vagrant.configure("2") do |config|
   if File.exists?(File.join(vagrant_dir,'provision','provision-post.sh')) then
     config.vm.provision :shell, :path => File.join( "provision", "provision-post.sh" )
   end
+
 end
